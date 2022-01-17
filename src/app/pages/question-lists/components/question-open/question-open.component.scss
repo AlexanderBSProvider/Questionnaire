@@ -8,14 +8,17 @@
     &-type {
       padding: 5px;
     }
+
     &-date {
       padding: 5px;
     }
+
     &-text {
       border: 1px solid black;
       margin: 5px;
       padding: 5px;
     }
+
     &-button {
       padding: 5px;
       display: flex;
@@ -28,4 +31,12 @@
       flex-direction: column;
     }
   }
+}
+
+.form-group-text {
+  width: 100%;
+}
+
+.form-control {
+  height: 70px;
 }

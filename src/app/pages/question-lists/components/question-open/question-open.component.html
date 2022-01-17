@@ -14,8 +14,8 @@
 
     <div class="item-container-content-options">
       <form [formGroup]="optionsFormGroup" >
-        <mat-form-field class="form-group-text" style="width: 100%;">
-          <textarea matInput placeholder="Text" class="form-control" style="height: 100px" formControlName="answer"
+        <mat-form-field class="form-group-text">
+          <textarea matInput placeholder="Text" class="form-control" formControlName="answer"
                     [readonly]="itemData['answered']"
                     [(ngModel)]="itemData['openAnswer']"
           ></textarea>
