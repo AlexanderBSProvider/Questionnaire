@@ -1,8 +1,6 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {StorageService} from "../../../services/storage.service";
-import {ActivatedRoute} from "@angular/router";
-import {v4 as uuidv4} from "uuid";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
+import { StorageService } from "../../../services/storage.service";
 
 @Component({
   selector: 'app-question-multiply',
@@ -16,16 +14,14 @@ export class QuestionMultiplyComponent {
 
   optionsFormGroup: FormGroup;
 
-  constructor(private storageService: StorageService,
-              private activatedRoute: ActivatedRoute) {
+  constructor(private storageService: StorageService) {
     this.optionsFormGroup = new FormGroup({
       answers: new FormArray([
       ])
     })
   }
 
-  submit(itemData: object): void {
-
+  submit(): void {
     let options;
     const selectedOptions = this.optionsFormGroup.controls['answers'].value.map((item: { answered: boolean, value: string }) => item.value);
 
@@ -55,14 +51,14 @@ export class QuestionMultiplyComponent {
     this.onChanged.emit(this.itemData.answered);
   }
 
-  updateChkbxArray(option: any, isChecked: boolean, key: string) {
+  updateCheckboxArray(option: any, isChecked: boolean, key: string) {
     const chkArray = <FormArray>this.optionsFormGroup.get(key);
     if (isChecked) {
       if (chkArray.controls.findIndex(x => x.value == option.id) == -1)
         chkArray.push(new FormControl({ answered: true, value: option.value }, Validators.required));
     } else {
-      let idx = chkArray.controls.findIndex(x => x.value == option.id);
-      chkArray.removeAt(idx);
+      let index = chkArray.controls.findIndex(x => x.value == option.id);
+      chkArray.removeAt(index);
     }
   }
 }

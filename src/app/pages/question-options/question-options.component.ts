@@ -29,7 +29,7 @@ export class QuestionOptionsComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (this.questionType === 'Open question') {
       while (this.optionForm.controls['options'].value.length) {
-        (<FormArray>this.optionForm.controls['options']).removeAt(0)
+        (<FormArray>this.optionForm.controls['options']).removeAt(0);
       }
     } else if (this.questionType === 'Single choice' || this.questionType === 'Multiple choice') {
       if ((<FormArray>this.optionForm.controls['options']).value.length === 0) {
@@ -49,7 +49,7 @@ export class QuestionOptionsComponent implements OnInit, OnChanges {
       (<FormArray>this.optionForm.controls['options']).controls = [];
       this.urlParams = this.activatedRoute.snapshot.params['itemId'];
 
-      this.questionInfo = this.storageService.getQuestion(this.urlParams)
+      this.questionInfo = this.storageService.getQuestion(this.urlParams);
 
       for (let option of this.questionInfo.options) {
         (<FormArray>this.optionForm.controls['options']).push(new FormControl(option.value, Validators.required));
@@ -70,10 +70,6 @@ export class QuestionOptionsComponent implements OnInit, OnChanges {
     this.optionForm.valueChanges.subscribe((val: any) => {
       fn(val);
     });
-  }
-
-  registerOnTouched(fn: () => void) {
-    this.onTouched = fn;
   }
 
   getFormsControls(): FormArray {

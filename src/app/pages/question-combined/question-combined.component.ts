@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
 import { v4 as uuidv4 } from 'uuid';
 import { StorageService } from "../services/storage.service";
-import { ActivatedRoute } from "@angular/router";
+
 
 @Component({
   selector: 'app-question-combined',
@@ -60,7 +61,6 @@ export class QuestionCombinedComponent implements OnInit {
 
     this.questionForm.controls['text'].setValue(this.questionInfo.text);
     this.questionForm.controls['type'].setValue(this.questionInfo.type);
-
   }
 
   submit(): void {

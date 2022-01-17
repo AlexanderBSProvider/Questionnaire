@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators} from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
 import { StorageService } from "../../../services/storage.service";
 
 @Component({
@@ -15,14 +14,13 @@ export class QuestionSingleComponent {
 
   optionsFormGroup: FormGroup;
 
-  constructor(private storageService: StorageService,
-              private activatedRoute: ActivatedRoute) {
+  constructor(private storageService: StorageService) {
     this.optionsFormGroup = new FormGroup({
       answer: new FormControl('', Validators.required)
     })
   }
 
-  submit(itemData: object): void {
+  submit(): void {
     let options: Array<object>;
     if (this.itemData.answered) {
       options = this.itemData.options.map((item: any) =>  ({

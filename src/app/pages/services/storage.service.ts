@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 export class StorageService {
 
   setQuestion(questionData: any): void {
-
     if (questionData.type === 'Open question') {
       questionData.options.length = 0;
     }

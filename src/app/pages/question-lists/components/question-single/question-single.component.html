@@ -31,7 +31,7 @@
       </form>
 
       <div class="item-container-content-button">
-        <button mat-raised-button class="btn btn-default" [disabled]="optionsFormGroup.invalid && !itemData['answered']" (click)="submit(itemData)">
+        <button mat-raised-button class="btn btn-default" [disabled]="optionsFormGroup.invalid && !itemData['answered']" (click)="submit()">
           {{itemData['answered'] ? 'Roll back' : 'Answer'}}
         </button>
       </div>

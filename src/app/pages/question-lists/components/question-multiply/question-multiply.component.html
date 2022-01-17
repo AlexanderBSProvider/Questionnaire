@@ -17,7 +17,7 @@
         <section class="checkbox-section text-center">
           <p *ngFor="let option of itemData.options" formArrayName="answers">
             <mat-checkbox class="checkbox-margin"
-                          (change)="updateChkbxArray(option, $event.checked, 'answers')"
+                          (change)="updateCheckboxArray(option, $event.checked, 'answers')"
                           [value]="option.value" [checked]="option['answered']"
                           [disabled]="itemData['answered']"
             >
@@ -28,7 +28,7 @@
     </div>
 
     <div class="item-container-content-button">
-      <button mat-raised-button class="btn btn-default" [disabled]="optionsFormGroup.controls['answers'].value.length === 0 && !itemData['answered']" (click)="submit(itemData)">
+      <button mat-raised-button class="btn btn-default" [disabled]="optionsFormGroup.controls['answers'].value.length === 0 && !itemData['answered']" (click)="submit()">
         {{itemData['answered'] ? 'Roll back' : 'Answer'}}
       </button>
     </div>

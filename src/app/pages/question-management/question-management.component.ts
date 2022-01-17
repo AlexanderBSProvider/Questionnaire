@@ -12,7 +12,7 @@ export class QuestionManagementComponent {
       return JSON.parse(val[1]);
     })
     .sort((obj1: any, obj2: any) => {
-      return -new Date(obj1.date).getTime() + new Date(obj2.date).getTime();
+      return new Date(obj2.date).getTime() - new Date(obj1.date).getTime();
     });
 
   deleteQuestion(item: any, index: number) {

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output} from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { StorageService } from "../../../services/storage.service";
-import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-question-open',
@@ -15,14 +14,13 @@ export class QuestionOpenComponent {
 
   optionsFormGroup: FormGroup;
 
-  constructor(private storageService: StorageService,
-              private activatedRoute: ActivatedRoute) {
+  constructor(private storageService: StorageService) {
     this.optionsFormGroup = new FormGroup({
       answer: new FormControl('', [Validators.required, Validators.maxLength(255)])
     })
   }
 
-  submit(itemData: object) {
+  submit() {
     let questionData = {
       id: this.itemData.id,
       type: this.itemData.type,

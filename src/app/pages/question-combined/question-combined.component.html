@@ -33,6 +33,7 @@
           </div>
 
           <app-question-options [questionType]="questionForm.controls['type'].value" [optionForm]="questionForm"></app-question-options>
+<!--          <app-question-options [questionType]="questionForm.controls['type'].value" [optionFormArray]="questionForm.controls['options']"></app-question-options>-->
 
           <div class="edit-container-content-question-submit">
             <button mat-raised-button class="btn btn-default" [disabled]="questionForm.invalid" routerLink="" (click)="submit()">
