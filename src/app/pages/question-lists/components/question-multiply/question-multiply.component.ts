@@ -52,13 +52,13 @@ export class QuestionMultiplyComponent {
   }
 
   updateCheckboxArray(option: any, isChecked: boolean, key: string) {
-    const chkArray = <FormArray>this.optionsFormGroup.get(key);
+    const CheckboxArray = <FormArray>this.optionsFormGroup.get(key);
     if (isChecked) {
-      if (chkArray.controls.findIndex(x => x.value == option.id) == -1)
-        chkArray.push(new FormControl({ answered: true, value: option.value }, Validators.required));
+      if (CheckboxArray.controls.findIndex(x => x.value == option.id) == -1)
+        CheckboxArray.push(new FormControl({ answered: true, value: option.value }, Validators.required));
     } else {
-      let index = chkArray.controls.findIndex(x => x.value == option.id);
-      chkArray.removeAt(index);
+      let index = CheckboxArray.controls.findIndex(x => x.value == option.id);
+      CheckboxArray.removeAt(index);
     }
   }
 }

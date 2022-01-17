@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 import { StorageService } from "../services/storage.service";
