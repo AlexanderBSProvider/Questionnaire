@@ -1,0 +1,40 @@
+<div class="item-container">
+  <div class="item-container-content">
+    <div class="item-container-content-date">
+      {{ itemData.date }}
+    </div>
+
+    <div class="item-container-content-type">
+      {{ itemData.type }}
+    </div>
+
+    <div class="item-container-content-text">
+      {{ itemData.text }}
+    </div>
+
+    <div class="item-container-content-options">
+      <form [formGroup]="optionsFormGroup">
+        <mat-radio-group formControlName="answer"
+                         aria-labelledby="example-radio-group-label"
+                         class="edit-container-content-types-group"
+                         [disabled] = "itemData['answered']"
+        >
+          <div class="radio-buttons">
+            <mat-radio-button class="radio-buttons-button" *ngFor="let option of itemData.options"
+                              [value]="option.value"
+                              [checked]="option['answered']"
+            >
+                {{ option.value }}
+            </mat-radio-button>
+          </div>
+        </mat-radio-group>
+      </form>
+
+      <div class="item-container-content-button">
+        <button mat-raised-button class="btn btn-default" [disabled]="optionsFormGroup.invalid && !itemData['answered']" (click)="submit(itemData)">
+          {{itemData['answered'] ? 'Roll back' : 'Answer'}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

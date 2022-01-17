@@ -1,0 +1,78 @@
+.edit-container {
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+
+  &-header {
+    margin: 10px 10px;
+    display: flex;
+
+    &-title {
+      margin: auto;
+      padding-right: 170px;
+    }
+  }
+
+  &-content {
+    width: 350px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid black;
+    margin: auto;
+
+    &-types {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-self: center;
+
+      &-group {
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        margin-top: 10px;
+      }
+    }
+
+    &-question {
+
+      &-options {
+        display: flex;
+        flex-direction: column;
+
+        &-delete {
+          padding-top: 15px;
+        }
+
+        &-option {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+
+      &-text {
+        margin-top: 20px;
+      }
+
+      &-buttons {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &-submit {
+        margin-top: 20px;
+        display: flex;
+        justify-self: flex-end;
+      }
+    }
+  }
+}
+//
+//.form-group-text {
+//  min-width: 350px;
+//  //min-width: 500px;
+//  //min-height: 250px;
+//  //width: 100%;
+//}

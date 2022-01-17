@@ -1,0 +1,27 @@
+<div class="options-container">
+  <form [formGroup]="optionForm" class="">
+    <div formArrayName="options" class="options-container-content">
+      <ng-container *ngFor="let option of getFormsControls()['controls']; let i = index">
+        <div class="options-container-content-option">
+          <mat-form-field class="form-group" style="width: 80%">
+            <input matInput placeholder="Option" class="form-control" formControlName="{{i}}" />
+          </mat-form-field>
+
+          <div class="options-container-content-option-delete">
+            <button mat-raised-button (click)="removeOption(i)">
+              <mat-icon>close </mat-icon>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="edit-container-content-question-buttons">
+        <ng-container *ngIf="questionType !== 'Open question'">
+          <button mat-raised-button class="btn btn-default" (click)="addOption()">
+            Add option
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </form>
+</div>

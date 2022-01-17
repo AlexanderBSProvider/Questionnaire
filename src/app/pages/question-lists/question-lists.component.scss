@@ -1,0 +1,35 @@
+.lists-container {
+
+  &-content {
+    display: flex;
+    row-gap: 30px;
+    justify-content: center;
+    column-gap: 500px;
+
+    &-left {
+      margin-top: 20px;
+      display: flex;
+      width: 500px;
+      flex-direction: column;
+      row-gap: 30px;
+
+      &-title {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    &-right {
+      margin-top: 20px;
+      width: 500px;
+      display: flex;
+      flex-direction: column;
+      row-gap: 30px;
+
+      &-title {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+<div class="management-container">
+  <div class="management-container-header">
+    <div class="management-container-header-title">
+      Question Management
+    </div>
+
+<!--  CLEAR LOCAL STORAGE  -->
+<!--    <button mat-raised-button (click)="clearLocal()">-->
+<!--      Clear-->
+<!--    </button>-->
+
+    <div class="management-container-header-button">
+      <button mat-raised-button routerLink="/create">
+        Create question
+      </button>
+    </div>
+  </div>
+
+  <div class="management-container-content">
+    <div class="management-container-content-items">
+        <ng-container *ngFor="let item of _localStorage; index as i">
+          <div class="management-container-content-items-item">
+            <div class="management-container-content-items-item-date">
+              {{ item['date'] }}
+            </div>
+
+            <div class="management-container-content-items-item-type">
+              {{ item['type'] }}
+            </div>
+
+              Question:
+            <div class="management-container-content-items-item-text">
+              {{ item['text'] }}
+            </div>
+
+            <ng-container *ngIf="item['type'] !== 'Open question'">
+              Answers:
+            </ng-container>
+
+            <ng-container *ngFor="let option of  item['options']">
+              <div class="management-container-content-items-item-option">
+                {{ option.value }}
+              </div>
+            </ng-container>
+
+            <div class="management-container-content-items-item-footer">
+              <div class="management-container-content-items-item-footer-delete">
+                <button mat-raised-button (click)="deleteQuestion(item, i)">
+                  Delete
+                </button>
+              </div>
+
+              <div class="management-container-content-items-item-footer-delete">
+                <button mat-raised-button [routerLink]="['/edit', item['id']]">
+                  Edit
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+    </div>
+  </div>
+</div>

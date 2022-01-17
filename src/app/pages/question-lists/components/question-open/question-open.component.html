@@ -1,0 +1,32 @@
+<div class="item-container">
+  <div class="item-container-content">
+    <div class="item-container-content-date">
+      {{ itemData.date }}
+    </div>
+
+    <div class="item-container-content-type">
+      {{ itemData.type }}
+    </div>
+
+    <div class="item-container-content-text">
+      {{ itemData.text }}
+    </div>
+
+    <div class="item-container-content-options">
+      <form [formGroup]="optionsFormGroup" >
+        <mat-form-field class="form-group-text" style="width: 100%;">
+          <textarea matInput placeholder="Text" class="form-control" style="height: 100px" formControlName="answer"
+                    [readonly]="itemData['answered']"
+                    [(ngModel)]="itemData['openAnswer']"
+          ></textarea>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <div class="item-container-content-button">
+      <button mat-raised-button class="btn btn-default" [disabled]="optionsFormGroup.invalid && !itemData['answered']" (click)="submit(itemData)">
+        {{itemData['answered'] ? 'Roll back' : 'Answer'}}
+      </button>
+    </div>
+  </div>
+</div>

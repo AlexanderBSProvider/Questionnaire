@@ -1,0 +1,44 @@
+<div class="lists-container">
+
+  <div class="lists-container-content">
+    <div  class="lists-container-content-left">
+      <div class="lists-container-content-left-title">
+        Unanswered
+      </div>
+
+      <ng-container *ngFor="let item of _localStorageLeft; index as i">
+          <ng-container *ngIf="item.type === 'Single choice'">
+            <app-question-single [itemData]="item" (onChanged)="onChanged($event)"></app-question-single>
+          </ng-container>
+
+          <ng-container *ngIf="item.type === 'Multiple choice'">
+            <app-question-multiply [itemData]="item" (onChanged)="onChanged($event)"></app-question-multiply>
+          </ng-container>
+
+          <ng-container *ngIf="item.type === 'Open question'">
+            <app-question-open [itemData]="item" (onChanged)="onChanged($event)"></app-question-open>
+          </ng-container>
+      </ng-container>
+    </div>
+
+    <div class="lists-container-content-right">
+      <div class="lists-container-content-right-title">
+        Answered
+      </div>
+
+      <ng-container *ngFor="let item of _localStorageRight; index as i">
+        <ng-container *ngIf="item.type === 'Single choice'">
+          <app-question-single [itemData]="item" (onChanged)="onChanged($event)"></app-question-single>
+        </ng-container>
+
+        <ng-container *ngIf="item.type === 'Multiple choice'">
+          <app-question-multiply [itemData]="item" (onChanged)="onChanged($event)"></app-question-multiply>
+        </ng-container>
+
+        <ng-container *ngIf="item.type === 'Open question'">
+          <app-question-open [itemData]="item" (onChanged)="onChanged($event)"></app-question-open>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>

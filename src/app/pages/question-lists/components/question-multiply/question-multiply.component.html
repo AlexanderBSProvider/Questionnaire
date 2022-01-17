@@ -1,0 +1,36 @@
+<div class="item-container">
+  <div class="item-container-content">
+    <div class="item-container-content-date">
+      {{ itemData.date }}
+    </div>
+
+    <div class="item-container-content-type">
+      {{ itemData.type }}
+    </div>
+
+    <div class="item-container-content-text">
+      {{ itemData.text }}
+    </div>
+
+    <div class="item-container-content-options">
+      <form [formGroup]="optionsFormGroup" >
+        <section class="checkbox-section text-center">
+          <p *ngFor="let option of itemData.options" formArrayName="answers">
+            <mat-checkbox class="checkbox-margin"
+                          (change)="updateChkbxArray(option, $event.checked, 'answers')"
+                          [value]="option.value" [checked]="option['answered']"
+                          [disabled]="itemData['answered']"
+            >
+              {{option.value}}</mat-checkbox>
+          </p>
+        </section>
+      </form>
+    </div>
+
+    <div class="item-container-content-button">
+      <button mat-raised-button class="btn btn-default" [disabled]="optionsFormGroup.controls['answers'].value.length === 0 && !itemData['answered']" (click)="submit(itemData)">
+        {{itemData['answered'] ? 'Roll back' : 'Answer'}}
+      </button>
+    </div>
+  </div>
+</div>
