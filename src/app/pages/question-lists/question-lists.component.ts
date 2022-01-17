@@ -25,7 +25,6 @@ export class QuestionListsComponent{
         return JSON.parse(val[1]);
       })
       .sort((obj1: any, obj2: any) => {
-        console.log(obj1, obj2)
         return -new Date(obj1.date).getTime() +  new Date(obj2.date).getTime();
       });
   }

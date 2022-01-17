@@ -42,7 +42,6 @@ export class QuestionCombinedComponent implements OnInit {
       ]),
       'options': new FormArray([
       ]),
-      // 'test': new FormControl('22')
     })
   }
 
