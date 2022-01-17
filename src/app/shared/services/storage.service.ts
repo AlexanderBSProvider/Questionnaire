@@ -10,7 +10,7 @@ export class StorageService {
     id: '',
     text: '',
     type: '',
-    date: 0,
+    date: new Date(),
     options: [{}],
     answered: false,
     openAnswer: ''
@@ -19,15 +19,13 @@ export class StorageService {
   constructor(private router: Router) { }
 
   setQuestion(id: string, text: string, type: string,  date: number,  options?: any, answered: boolean = false, openAnswer?: any) {
+
     this.question.options.pop();
+
     this.question.text = text;
-    this.question.date = date;
+    this.question.date = new Date(date);
     this.question.type = type;
     this.question.options = options;
-
-    // for (let option of options) {
-    //   this.question.options.push({answered: false, value: option})
-    // }
     this.question.id = id;
     this.question.answered = answered;
     this.question.openAnswer = openAnswer;
@@ -37,10 +35,5 @@ export class StorageService {
     }
 
     localStorage.setItem(id, JSON.stringify(this.question));
-  }
-
-  getStorageValue(item:any) {
-    // console.log(JSON.parse(item[1]), '11');
-    return JSON.parse(item[1]);
   }
 }

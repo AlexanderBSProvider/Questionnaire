@@ -21,10 +21,12 @@ export class QuestionListsComponent{
   getStorageData() {
 
     return Object.entries(localStorage)
+      .map((val) => {
+        return JSON.parse(val[1]);
+      })
       .sort((obj1: any, obj2: any) => {
-        return -JSON.parse(obj1[1]).date + JSON.parse(obj2[1]).date
-      }).map((val) => {
-        return JSON.parse(val[1])
+        console.log(obj1, obj2)
+        return -new Date(obj1.date).getTime() +  new Date(obj2.date).getTime();
       });
   }
 }
