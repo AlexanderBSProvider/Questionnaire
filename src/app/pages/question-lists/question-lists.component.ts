@@ -13,13 +13,11 @@ export class QuestionListsComponent{
   _localStorageRight = this._localStorage.filter(item => item.answered === true);
 
   onChanged(answered: any) {
-
       this._localStorageLeft = this.getStorageData().filter(item => item.answered === false);
       this._localStorageRight = this.getStorageData().filter(item => item.answered === true);
   }
 
   getStorageData() {
-
     return Object.entries(localStorage)
       .map((val) => {
         return JSON.parse(val[1]);

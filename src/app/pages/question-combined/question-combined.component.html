@@ -5,7 +5,7 @@
     </div>
 
     <div class="edit-container-header-title">
-      {{ type === 'edit' ? 'Edit question' : 'Create question'}}
+      {{ isEdit ? 'Edit ' : 'Create '}} question
     </div>
   </div>
 
@@ -27,7 +27,7 @@
           </mat-radio-group>
 
           <div class="edit-container-content-question-text">
-            <mat-form-field class="form-group-text" style="width: 100%">
+            <mat-form-field class="form-group-text">
               <textarea matInput placeholder="Text" class="form-control" formControlName="text"></textarea>
             </mat-form-field>
           </div>
@@ -36,7 +36,7 @@
 
           <div class="edit-container-content-question-submit">
             <button mat-raised-button class="btn btn-default" [disabled]="questionForm.invalid" routerLink="" (click)="submit()">
-              {{ type === 'edit' ? 'Edit' : 'Create'}}
+              {{ this.isEdit ? 'Edit' : 'Create'}}
             </button>
           </div>
         </form>

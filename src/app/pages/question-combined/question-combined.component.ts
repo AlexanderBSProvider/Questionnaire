@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {v4 as uuidv4} from 'uuid';
-import {StorageService} from "../../shared/services/storage.service";
-import {ActivatedRoute} from "@angular/router";
+import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
+import { v4 as uuidv4 } from 'uuid';
+import { StorageService } from "../services/storage.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-question-combined',
@@ -11,22 +11,22 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class QuestionCombinedComponent implements OnInit {
 
-  type = this.activatedRoute.snapshot.url[0].path;
+  isEdit = this.activatedRoute.snapshot.data['isEdit'];
 
   urlParams = '';
   questionInfo: any;
 
   types = [
     {
-      key: uuidv4(),
+      key: 0,
       value: 'Single choice'
     },
     {
-      key: uuidv4(),
+      key: 1,
       value: 'Multiple choice'
     },
     {
-      key: uuidv4(),
+      key: 2,
       value: 'Open question'
     },
   ];
@@ -46,30 +46,40 @@ export class QuestionCombinedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     if (this.type === 'edit') {
-       this.urlParams = this.activatedRoute.snapshot.params['itemId'];
-       let questionInfoJSON = localStorage.getItem(this.urlParams);
-
-         if (questionInfoJSON) {
-           this.questionInfo = JSON.parse(questionInfoJSON);
-         }
-         this.questionForm.controls['text'].setValue(this.questionInfo.text);
-         this.questionForm.controls['type'].setValue(this.questionInfo.type);
-     }
+    this.setQuestionFormValue();
   }
 
-  submit() {
+  setQuestionFormValue(): void {
+    if (!this.isEdit) {
+      return
+    }
 
-    let id = this.type === 'edit' ? this.urlParams : uuidv4();
-    let date = new Date();
-    let questionData = this.questionForm.value;
+    this.urlParams = this.activatedRoute.snapshot.params['itemId'];
 
+    this.questionInfo = this.storageService.getQuestion(this.urlParams)
+
+    this.questionForm.controls['text'].setValue(this.questionInfo.text);
+    this.questionForm.controls['type'].setValue(this.questionInfo.type);
+
+  }
+
+  submit(): void {
     let optionsWithAnswers = [];
 
-    for (let option of questionData.options) {
+    for (let option of this.questionForm.value.options) {
       optionsWithAnswers.push({answered: false, value: option})
     }
 
-    this.storageService.setQuestion(id, questionData.text, questionData.type, date.getTime(), optionsWithAnswers);
+    let questionData = {
+      id: this.isEdit ? this.urlParams : uuidv4(),
+      type: this.questionForm.value.type,
+      text: this.questionForm.value.text,
+      date: new Date(),
+      options: optionsWithAnswers,
+      answered: false,
+      openAnswer: '',
+    }
+
+    this.storageService.setQuestion(questionData);
   }
 }

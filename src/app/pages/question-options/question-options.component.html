@@ -3,7 +3,7 @@
     <div formArrayName="options" class="options-container-content">
       <ng-container *ngFor="let option of getFormsControls()['controls']; let i = index">
         <div class="options-container-content-option">
-          <mat-form-field class="form-group" style="width: 80%">
+          <mat-form-field class="form-group">
             <input matInput placeholder="Option" class="form-control" formControlName="{{i}}" />
           </mat-form-field>
 

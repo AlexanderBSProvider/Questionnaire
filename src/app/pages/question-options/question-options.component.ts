@@ -1,58 +1,37 @@
 import { Component, forwardRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators } from "@angular/forms";
-
-import { StorageService } from "../../shared/services/storage.service";
+import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
+import { StorageService } from "../services/storage.service";
 
 @Component({
   selector: 'app-question-options',
   templateUrl: './question-options.component.html',
   styleUrls: ['./question-options.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      multi: true,
-      useExisting: forwardRef(() => QuestionOptionsComponent)
-    }
-  ]
 })
-export class QuestionOptionsComponent implements OnInit, OnChanges, ControlValueAccessor {
+export class QuestionOptionsComponent implements OnInit, OnChanges {
 
   @Input() questionType = '';
+  @Input() optionForm: any;
 
-  pageType = this.activatedRoute.snapshot.url[0].path;
-
+  // pageType = this.activatedRoute.snapshot.url[0].path
+  isEdit = this.activatedRoute.snapshot.data['isEdit'];
   urlParams = '';
 
   questionInfo: any;
 
-  @Input() optionForm: FormGroup;
-
-  constructor(private storageService: StorageService,
-              private activatedRoute: ActivatedRoute) {
-    this.optionForm = new FormGroup({
-      'options': new FormArray([
-      ]),
-    })
+  constructor(private storageService: StorageService, private activatedRoute: ActivatedRoute) {
+    // this.optionForm = new FormGroup({
+    //   'options': new FormArray([
+    //   ]),
+    // })
   }
 
   ngOnChanges(changes: SimpleChanges) {
-
     if (this.questionType === 'Open question') {
       while (this.optionForm.controls['options'].value.length) {
         (<FormArray>this.optionForm.controls['options']).removeAt(0)
       }
-
-    } else if (this.questionType === 'Single choice') {
-
-      if ((<FormArray>this.optionForm.controls['options']).value.length === 0) {
-        (<FormArray>this.optionForm.controls['options']).controls = [];
-        (<FormArray>this.optionForm.controls['options']).push(new FormControl('', Validators.required));
-        (<FormArray>this.optionForm.controls['options']).push(new FormControl('', Validators.required));
-      }
-
-    } else if (this.questionType === 'Multiple choice') {
-
+    } else if (this.questionType === 'Single choice' || this.questionType === 'Multiple choice') {
       if ((<FormArray>this.optionForm.controls['options']).value.length === 0) {
         (<FormArray>this.optionForm.controls['options']).controls = [];
         (<FormArray>this.optionForm.controls['options']).push(new FormControl('', Validators.required));
@@ -62,15 +41,15 @@ export class QuestionOptionsComponent implements OnInit, OnChanges, ControlValue
   }
 
   ngOnInit(): void {
+    this.setQuestionFormValue();
+  }
 
-    if (this.pageType === 'edit') {
+  setQuestionFormValue(): void {
+    if (this.isEdit) {
       (<FormArray>this.optionForm.controls['options']).controls = [];
       this.urlParams = this.activatedRoute.snapshot.params['itemId'];
-      let questionInfoJSON = localStorage.getItem(this.urlParams);
 
-      if (questionInfoJSON) {
-        this.questionInfo = JSON.parse(questionInfoJSON);
-      }
+      this.questionInfo = this.storageService.getQuestion(this.urlParams)
 
       for (let option of this.questionInfo.options) {
         (<FormArray>this.optionForm.controls['options']).push(new FormControl(option.value, Validators.required));
@@ -88,7 +67,7 @@ export class QuestionOptionsComponent implements OnInit, OnChanges, ControlValue
   }
 
   registerOnChange(fn: (v: any) => void) {
-    this.optionForm.valueChanges.subscribe(val => {
+    this.optionForm.valueChanges.subscribe((val: any) => {
       fn(val);
     });
   }

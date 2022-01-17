@@ -18,10 +18,12 @@ const routes: Routes = [
   {
     path: 'create',
     component: QuestionCombinedComponent,
+    data: { isEdit: false }
   },
   {
     path: 'edit/:itemId',
     component: QuestionCombinedComponent,
+    data: { isEdit: true }
   },
   {
     path: 'list',

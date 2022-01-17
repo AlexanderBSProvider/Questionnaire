@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators} from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-
-import { StorageService } from "../../../../shared/services/storage.service";
+import { StorageService } from "../../../services/storage.service";
 
 @Component({
   selector: 'app-question-single',
@@ -23,13 +22,8 @@ export class QuestionSingleComponent {
     })
   }
 
-  submit(itemData: object) {
-    let id = this.itemData.id;
-    let date = new Date();
-    let text = this.itemData.text;
-    let type = this.itemData.type;
-
-    let options;
+  submit(itemData: object): void {
+    let options: Array<object>;
     if (this.itemData.answered) {
       options = this.itemData.options.map((item: any) =>  ({
         ...item,
@@ -42,7 +36,17 @@ export class QuestionSingleComponent {
       }))
     }
 
-    this.storageService.setQuestion(id, text, type, date.getTime(), options, !this.itemData.answered);
+    let questionData = {
+      id: this.itemData.id,
+      type: this.itemData.type,
+      text: this.itemData.text,
+      date: new Date(),
+      options: options,
+      answered: !this.itemData['answered'],
+      openAnswer: '',
+    }
+
+    this.storageService.setQuestion(questionData);
     this.onChanged.emit(this.itemData.answered);
   }
 }
